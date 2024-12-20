@@ -1,3 +1,5 @@
+#Stack is a data structure that the order of data together obeys the rule "Last is, First out". In simple words, the latest added element is the first element to be removed.
+
 class Stack:
     def __init__(self, limit = 100):
         self.stack = []
