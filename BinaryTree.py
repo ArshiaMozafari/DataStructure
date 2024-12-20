@@ -1,3 +1,6 @@
+#Binary tree is a data structure retrieved from tree concepts that each parent can have at most 2 children.
+
+
 class BinaryNode:
     def __init__(self, data):
         self.data = data
