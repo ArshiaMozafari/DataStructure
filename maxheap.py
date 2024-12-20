@@ -1,4 +1,4 @@
-#Max Heap is a data structure retrieved from tree concepts that parent node is always larger than its children. we always keep it like that by calling the method "heapify" which control whether the parent is larger or not.
+#Max Heap is a data structure retrieved from tree concepts that parent node is always larger than its children. we always keep it like that by calling the method "heapify" which controls whether the parent is larger or not.
 
 
 class max_heap:
