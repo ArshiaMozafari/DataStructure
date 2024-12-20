@@ -1,0 +1,90 @@
+#Undirected simple graph with BFS show
+
+class CircularQueue:
+    def __init__(self, size):
+        self.queue = [None] * size
+        self.max_size = size
+        self.front = -1
+        self.rear = -1
+
+    def enqueue(self, item):
+        if (self.rear + 1) % self.max_size == self.front:
+            raise OverflowError("Queue is full")
+        elif self.front == -1:  # Empty queue
+            self.front = self.rear = 0
+        else:
+            self.rear = (self.rear + 1) % self.max_size
+        self.queue[self.rear] = item
+
+    def dequeue(self):
+        if self.front == -1:
+            raise IndexError("Queue is empty")
+        item = self.queue[self.front]
+        if self.front == self.rear:  # Single element
+            self.front = self.rear = -1
+        else:
+            self.front = (self.front + 1) % self.max_size
+        return item
+
+    def is_empty(self):
+        return self.front == -1
+
+class Graph:
+    def __init__(self, n):
+        self.M = [[0] * n for i in range(n)]
+
+    def ins_edge(self, s, t):
+        self.M[s][t] = 1
+        self.M[t][s] = 1
+
+    def del_edge(self, s, t):
+        self.M[s][t] = 0
+        self.M[t][s] = 0
+
+    def degree(self, A):
+        return sum(self.M[A])
+    
+    def bfs_show(self, start):
+        n = len(self.M)
+        temp = [False] * n
+        queue = CircularQueue(n)
+
+        queue.enqueue(start)
+        temp[start] = True
+
+        bfs_list = []
+        while not queue.is_empty():
+            node = queue.dequeue()
+            bfs_list.append(node)
+
+            for i in range(n):
+                if self.M[node][i] == 1 and not temp[i]:
+                    queue.enqueue(i)
+                    temp[i] = True
+        print(bfs_list)
+
+
+    def modify_V(self, add=True, index=0):
+        n = len(self.M)
+        if add:
+            for i in range(n):
+                self.M[i].insert(index, 0)
+            self.M.insert(index, [0] * (n + 1))
+        else:
+            if n == 0:
+                print("No vertex exists")
+                return
+            for i in range(n):
+                self.M[i].pop(index)
+            self.M.pop(index)
+
+    def count_vertex_edge(self):
+        sum_degree = 0
+        vertex = len(self.M)
+        for i in range(vertex):
+            sum_degree += self.degree(i)
+        edges = sum_degree//2
+        return vertex, edges
+        
+
+
